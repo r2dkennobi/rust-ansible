@@ -1,0 +1,15 @@
+---
+- name: Check if Rust is installed
+  stat:
+    path: "~/.cargo/bin/rustc"
+  register: rustc_bin
+
+- name: Download rustup
+  get_url:
+    url: "https://sh.rustup.rs"
+    dest: "/tmp/rustup.sh"
+  when: not rustc_bin.stat.exists
+
+- name: Install Rust using rustup
+  script: "/tmp/rustup.sh -y"
+  when: not rustc_bin.stat.exists
