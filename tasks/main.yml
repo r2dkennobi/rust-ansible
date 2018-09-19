@@ -13,3 +13,10 @@
 - name: Install Rust using rustup
   script: "/tmp/rustup.sh -y"
   when: not rustc_bin.stat.exists
+
+- name: Add Rust to PATH
+  blockinfile:
+    marker: "# {mark} Rust path"
+    dest: "~/.bashrc"
+    content: "source \"$HOME/.cargo/env\""
+  when: not rustc_bin.stat.exists
