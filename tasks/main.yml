@@ -8,10 +8,11 @@
   get_url:
     url: "https://sh.rustup.rs"
     dest: "/tmp/rustup.sh"
+    mode: 0755
   when: not rustc_bin.stat.exists
 
 - name: Install Rust using rustup
-  script: "/tmp/rustup.sh -y"
+  command: "/tmp/rustup.sh -y"
   when: not rustc_bin.stat.exists
 
 - name: Add Rust to PATH
